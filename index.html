@@ -363,8 +363,10 @@
 
           
               <div class="row">
+              <form name="submit-to-google-sheet">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                  <br>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
                   <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
@@ -376,10 +378,11 @@
               <div class="form-group mt-3">
                 <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
-            <br>
+              <br>
               <div>
-                <button type="button" class="btn btn-primary">  Submit  </button>
+                <button type="submit" class="btn btn-primary">  Submit  </button>
               </div>
+            </form>
               
               
          
@@ -427,5 +430,41 @@
   <script src="assets/js/main.js"></script>
 
 </body>
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwhZ4jdbTuoYM7kXTrPMVMCtuQxo5rl1EQBLVqeRUaX6tfVJ0EJm-TfYkBPPP_FwL-8Zg/exec'
+  const form = document.forms['submit-to-google-sheet']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var form = document.forms['submit-to-google-sheet'];
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Perform your form validation here if needed
+
+      // Simulate a successful submission (you can replace this with your actual submission logic)
+      var isSubmittedSuccessfully = true;
+
+      if (isSubmittedSuccessfully) {
+        alert('Form submitted successfully!');
+        form.reset(); // Optionally reset the form fields
+      } else {
+        alert('Error submitting the form. Please try again.');
+      }
+    });
+  });
+</script>
+
+
 
 </html>
